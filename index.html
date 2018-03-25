@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="game">
+        <p>Press any key to get started!</p>
+        <p>Wins</p>
+        <p>Current Word</p>
+        <p id="mystery-word"></p>
+        <p>Number of Guesses Remaining</p>
+        <p id="number-of-guesses"></p>
+        <p>Letters Already Guessed</p>
+        <p id="letters-guessed"></p>
+    </div>
+
+    <script type="text/javascript">
+
+    var characters = ["snow", "targaryen", "lannister", "stark", "baratheon", "baelish", "clegane", "greyjoy", "tyrell"] 
+    var mysteryWord = characters[Math.floor(Math.random() * characters.length)];
+    var guesses = 12;
+    var lettersGuessed = [];
+    var string;
+
+    window.onload = function start() {
+        for (var i=0; i < mysteryWord.length; i++) {
+            lettersGuessed[i] = "—";
+        }
+
+        string = lettersGuessed.join("");
+        document.getElementById("letters-guessed").innerHTML = string;
+    }
+
+    console.log(mysteryWord);
+
+    document.onkeyup = function updateWord() {
+        var char = String.fromCharCode(event.keyCode).toLowerCase();
+
+        for (var i=0; i < mysteryWord.length; i++) { 
+            if (mysteryWord[i] === char) {
+                lettersGuessed[i] = char;
+            }
+        }
+
+        guesses--;
+        document.getElementById("number-of-guesses").innerHTML = guesses;
+        document.getElementById("letters-guessed").innerHTML = lettersGuessed.join("");
+    }  
+
+    </script>
+
+</body>
+</html>
+<script>
