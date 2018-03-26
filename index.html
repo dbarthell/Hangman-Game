@@ -47,12 +47,12 @@
         <div id="game">
             <img src="assets/images/faces.jpg" alt="faces">
             <p>Guess a letter if you dare.</p>
-            <p>"When you play the Game of Thrones, you win or you die." </p>
+            <p>Winter is coming. </p>
             <p id="of-house">Of House</p>
             <p id="mystery-word"></p>
             <p>Number of Lives Remaining</p>
             <p id="number-of-guesses">12</p>
-            <p>Letters Already Guessed</p>
+            <p>Letters Guessed</p>
             <p id="letters-guessed"></p>
         </div>
     </div>
@@ -90,7 +90,7 @@
         document.getElementById("mystery-word").innerHTML = lettersGuessed.join("");
 
         if (guesses === 0 || guesses < 0) {
-            document.getElementById("number-of-guesses").innerHTML = "You lost. You go to the God of many faces...";
+            document.getElementById("number-of-guesses").innerHTML = "You lost. Your fate is with the God of many faces...";
         }
     }  
 
