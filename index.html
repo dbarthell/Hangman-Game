@@ -6,34 +6,72 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
+<style>
+
+    .container {
+        background-image: url("assets/images/throne.jpg");
+        height: 780px;
+    }
+
+    #game {
+        text-align: center;
+        color: white;
+        padding-top: 50px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    img {
+        height: 200px;
+        width: 500px;
+    }
+
+    #mystery-word {
+        font-family: 'Berkshire Swash', cursive;
+        font-size: 3em;
+    }
+
+    #mystery-word::first-letter {
+        text-transform: capitalize;
+    }
+
+    #of-house {
+        font-size: 2em;
+    }
+
+
+</style>
 <body>
 
-    <div id="game">
-        <p>Press any key to get started!</p>
-        <p>Wins</p>
-        <p>Current Word</p>
-        <p id="mystery-word"></p>
-        <p>Number of Guesses Remaining</p>
-        <p id="number-of-guesses"></p>
-        <p>Letters Already Guessed</p>
-        <p id="letters-guessed"></p>
+    <div class="container">
+        <div id="game">
+            <img src="assets/images/faces.jpg" alt="faces">
+            <p>Guess a letter if you dare.</p>
+            <p>"When you play the Game of Thrones, you win or you die." </p>
+            <p id="of-house">Of House</p>
+            <p id="mystery-word"></p>
+            <p>Number of Lives Remaining</p>
+            <p id="number-of-guesses">12</p>
+            <p>Letters Already Guessed</p>
+            <p id="letters-guessed"></p>
+        </div>
     </div>
 
     <script type="text/javascript">
 
-    var characters = ["snow", "targaryen", "lannister", "stark", "baratheon", "baelish", "clegane", "greyjoy", "tyrell"] 
+    var characters = ["snow", "targaryen", "lannister", "stark", "baratheon", "clegane"] 
     var mysteryWord = characters[Math.floor(Math.random() * characters.length)];
     var guesses = 12;
     var lettersGuessed = [];
     var string;
 
-    window.onload = function start() {
+    window.onload = function showDashes() {
         for (var i=0; i < mysteryWord.length; i++) {
-            lettersGuessed[i] = "—";
+            lettersGuessed[i] = " — ";
         }
 
         string = lettersGuessed.join("");
-        document.getElementById("letters-guessed").innerHTML = string;
+        document.getElementById("mystery-word").innerHTML = string;
     }
 
     console.log(mysteryWord);
@@ -49,7 +87,11 @@
 
         guesses--;
         document.getElementById("number-of-guesses").innerHTML = guesses;
-        document.getElementById("letters-guessed").innerHTML = lettersGuessed.join("");
+        document.getElementById("mystery-word").innerHTML = lettersGuessed.join("");
+
+        if (guesses === 0 || guesses < 0) {
+            document.getElementById("number-of-guesses").innerHTML = "You lost. You go to the God of many faces...";
+        }
     }  
 
     </script>
