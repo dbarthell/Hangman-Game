@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-</head>
-<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
+
 <style>
 
     .container {
@@ -41,6 +41,8 @@
 
 
 </style>
+</head>
+
 <body>
 
     <div class="container">
@@ -59,10 +61,11 @@
 
     <script type="text/javascript">
 
-    var characters = ["snow", "targaryen", "lannister", "stark", "baratheon", "clegane"] 
+    var characters = ["clegane", "baratheon", "lannister", "stark", "targaryen", "snow"] 
     var mysteryWord = characters[Math.floor(Math.random() * characters.length)];
     var guesses = 12;
     var lettersGuessed = [];
+    var keysPressed = [];
     var string;
 
     window.onload = function showDashes() {
@@ -74,10 +77,15 @@
         document.getElementById("mystery-word").innerHTML = string;
     }
 
-    console.log(mysteryWord);
-
-    document.onkeyup = function updateWord() {
+    document.onkeyup = function updateWord(event) {
         var char = String.fromCharCode(event.keyCode).toLowerCase();
+        var keyPress;
+
+        if (event) {
+            keyPress = event.which;
+        }
+
+        keysPressed.push(String.fromCharCode(keyPress));
 
         for (var i=0; i < mysteryWord.length; i++) { 
             if (mysteryWord[i] === char) {
@@ -85,17 +93,35 @@
             }
         }
 
+        if(checkGameOver()) {
+            location.reload();
+        }
+
         guesses--;
+
         document.getElementById("number-of-guesses").innerHTML = guesses;
         document.getElementById("mystery-word").innerHTML = lettersGuessed.join("");
+        document.getElementById("letters-guessed").innerHTML = keysPressed.join(" ");
 
-        if (guesses === 0 || guesses < 0) {
+        
+        if (guesses < 0) {
             document.getElementById("number-of-guesses").innerHTML = "You lost. Your fate is with the God of many faces...";
         }
-    }  
+
+    }
+
+   
+
+    function checkGameOver() {
+        for (var i=0; i < mysteryWord.length; i++) { 
+            if (!lettersGuessed.includes(mysteryWord[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     </script>
 
 </body>
 </html>
-<script>
