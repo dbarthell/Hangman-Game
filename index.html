@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,40 +8,37 @@
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
 
-<style>
+    <style>
+        .container {
+            background-image: url("assets/images/throne.jpg");
+            height: 780px;
+        }
 
-    .container {
-        background-image: url("assets/images/throne.jpg");
-        height: 780px;
-    }
+        #game {
+            text-align: center;
+            color: white;
+            padding-top: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-    #game {
-        text-align: center;
-        color: white;
-        padding-top: 50px;
-        font-family: Arial, Helvetica, sans-serif;
-    }
+        img {
+            height: 200px;
+            width: 500px;
+        }
 
-    img {
-        height: 200px;
-        width: 500px;
-    }
+        #mystery-word {
+            font-family: 'Berkshire Swash', cursive;
+            font-size: 3em;
+        }
 
-    #mystery-word {
-        font-family: 'Berkshire Swash', cursive;
-        font-size: 3em;
-    }
+        #mystery-word::first-letter {
+            text-transform: capitalize;
+        }
 
-    #mystery-word::first-letter {
-        text-transform: capitalize;
-    }
-
-    #of-house {
-        font-size: 2em;
-    }
-
-
-</style>
+        #of-house {
+            font-size: 2em;
+        }
+    </style>
 </head>
 
 <body>
@@ -61,67 +59,68 @@
 
     <script type="text/javascript">
 
-    var characters = ["clegane", "baratheon", "lannister", "stark", "targaryen", "snow"] 
-    var mysteryWord = characters[Math.floor(Math.random() * characters.length)];
-    var guesses = 12;
-    var lettersGuessed = [];
-    var keysPressed = [];
-    var string;
+        var characters = ["clegane", "baratheon", "lannister", "stark", "targaryen", "snow"]
+        var mysteryWord = characters[Math.floor(Math.random() * characters.length)];
+        var guesses = 12;
+        var lettersGuessed = [];
+        var keysPressed = [];
+        var string;
 
-    window.onload = function showDashes() {
-        for (var i=0; i < mysteryWord.length; i++) {
-            lettersGuessed[i] = " — ";
-        }
-
-        string = lettersGuessed.join("");
-        document.getElementById("mystery-word").innerHTML = string;
-    }
-
-    document.onkeyup = function updateWord(event) {
-        var char = String.fromCharCode(event.keyCode).toLowerCase();
-        var keyPress;
-
-        if (event) {
-            keyPress = event.which;
-        }
-
-        keysPressed.push(String.fromCharCode(keyPress));
-
-        for (var i=0; i < mysteryWord.length; i++) { 
-            if (mysteryWord[i] === char) {
-                lettersGuessed[i] = char;
+        window.onload = function showDashes() {
+            for (var i = 0; i < mysteryWord.length; i++) {
+                lettersGuessed[i] = " — ";
             }
+
+            string = lettersGuessed.join("");
+            document.getElementById("mystery-word").innerHTML = string;
         }
 
-        if(checkGameOver()) {
-            location.reload();
-        }
+        document.onkeyup = function updateWord(event) {
+            var char = String.fromCharCode(event.keyCode).toLowerCase();
+            var keyPress;
 
-        guesses--;
-
-        document.getElementById("number-of-guesses").innerHTML = guesses;
-        document.getElementById("mystery-word").innerHTML = lettersGuessed.join("");
-        document.getElementById("letters-guessed").innerHTML = keysPressed.join(" ");
-
-        
-        if (guesses < 0) {
-            document.getElementById("number-of-guesses").innerHTML = "You lost. Your fate is with the God of many faces...";
-        }
-
-    }
-
-   
-
-    function checkGameOver() {
-        for (var i=0; i < mysteryWord.length; i++) { 
-            if (!lettersGuessed.includes(mysteryWord[i])) {
-                return false;
+            if (event) {
+                keyPress = event.which;
             }
+
+            keysPressed.push(String.fromCharCode(keyPress));
+
+            for (var i = 0; i < mysteryWord.length; i++) {
+                if (mysteryWord[i] === char) {
+                    lettersGuessed[i] = char;
+                }
+            }
+
+            if (checkGameOver()) {
+                location.reload();
+            }
+
+            guesses--;
+
+            document.getElementById("number-of-guesses").innerHTML = guesses;
+            document.getElementById("mystery-word").innerHTML = lettersGuessed.join("");
+            document.getElementById("letters-guessed").innerHTML = keysPressed.join(" ");
+
+
+            if (guesses < 0) {
+                document.getElementById("number-of-guesses").innerHTML = "You lost. Your fate is with the God of many faces...";
+            }
+
         }
-        return true;
-    }
+
+
+
+        function checkGameOver() {
+            for (var i = 0; i < mysteryWord.length; i++) {
+                if (!lettersGuessed.includes(mysteryWord[i])) {
+                    return false;
+                }
+            }
+            return true;
+        }
 
     </script>
 
 </body>
+
 </html>
